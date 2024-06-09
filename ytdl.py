@@ -5,15 +5,14 @@ import os
 # create the out path to store the audio files
 OUT_PATH="./audiofiles"
 os.makedirs(OUT_PATH, exist_ok=True)
-
 """
 Uses yt-dlp to download audio files into the outpath.
 """
 def downloadAudio(track):
     final_filename = None
     
-    artist = track['artists'][0]['name']
-    output_filename = "{0}/{1}_{2}".format(OUT_PATH, artist, track['name'])
+    artist = track['artists'][0]['name'].replace(' ', '')
+    output_filename = "{0}/{1}_{2}.wav".format(OUT_PATH, artist, track['name'])
     search_query = "{0} {1}".format(track['name'], artist)
     print(output_filename)
     yt_opts = {
@@ -21,14 +20,16 @@ def downloadAudio(track):
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
+            'preferredcodec': 'wav',
         }],
         "outtmpl": output_filename,
-        'prefer_ffmpeg': True
+        'prefer_ffmpeg': True,
+        'verbose': False,
+        'quiet': True, 
+        'noprogress': True
     }
-
     with YoutubeDL(yt_opts) as ydl:
-        ydl.download(f"ytsearch:{search_query}" )
+        retcode = ydl.download(f"ytsearch:{search_query}" )
     
-    # return the filepath 
-    return 
+    # return the return code 
+    return retcode, output_filename
