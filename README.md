@@ -24,3 +24,4 @@ Run main.py `python main.py` with all of the following configured
     - This includes setting up GIPHY api, as well as spotify API
   - client_secrets.json
     - This includes setting up Google Youtube Data API
+  - ffmpeg on PATH or in local directory with some edits to code
