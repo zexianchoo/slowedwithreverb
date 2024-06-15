@@ -12,8 +12,8 @@ def downloadAudio(track):
     final_filename = None
     
     artist = track['artists'][0]['name'].replace(' ', '')
-    output_filename = "{0}/{1}_{2}.wav".format(OUT_PATH, artist, track['name'])
-    search_query = "{0} {1}".format(track['name'], artist)
+    output_filename = "{0}/{1}_{2}".format(OUT_PATH, artist, track['name']).replace(' ', '')
+    search_query = "{0} {1} audio".format(track['name'], artist)
     print(output_filename)
     yt_opts = {
         'noplaylist': True,
@@ -30,6 +30,6 @@ def downloadAudio(track):
     }
     with YoutubeDL(yt_opts) as ydl:
         retcode = ydl.download(f"ytsearch:{search_query}" )
-    
+        print("output_filename: ", output_filename)
     # return the return code 
-    return retcode, output_filename
+    return retcode, output_filename + ".wav"

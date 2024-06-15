@@ -1,8 +1,5 @@
 import requests
 import base64
-import json
-from pprint import pprint
-
 
 """
 Authenticates with the server and create an access token for future use.
