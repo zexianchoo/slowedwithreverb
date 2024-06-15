@@ -13,3 +13,11 @@ GIPHY_API = "..."
 ```
 
 There will have to be a manual sign-in at the beginning for Google's authentication.
+
+# Usage:
+
+Run main.py `python main.py` with all of the following configured
+    - config.env
+      - This includes setting up GIPHY api, as well as spotify API
+    - client_secrets.json
+      - This includes setting up Google Youtube Data API
