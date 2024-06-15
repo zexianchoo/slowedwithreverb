@@ -16,6 +16,9 @@ There will have to be a manual sign-in at the beginning for Google's authenticat
 
 # Usage:
 
+Run redis-server on local port 6379 (default).
+  - db which handles saving of which gifs and which songs have been downloaded
+
 Run main.py `python main.py` with all of the following configured
   - config.env
     - This includes setting up GIPHY api, as well as spotify API
