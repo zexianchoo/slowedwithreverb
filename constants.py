@@ -5,3 +5,9 @@ VIDEO_BASENAME="videos"
 AUDIO_BASENAME="audio"
 
 # slowed with reverb settings:
+ROOM_SIZE=0.5
+DAMPING=0.5
+WET_LEVEL=0.08
+DRY_LEVEL=0.2
+DELAY=1
+SLOWFACTOR=0.12

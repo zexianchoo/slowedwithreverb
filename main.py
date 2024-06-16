@@ -1,13 +1,17 @@
 import os
 from dotenv import load_dotenv
 import redis
+import subprocess
+import time
+
 from src.spotifyapi import authorize, getTopSongs
 from src.ytdl import downloadAudio
 from src.slowedwreverb import slowedreverb
 from src.videocreation import getNewGIF, createVideoFromGIF
+from constants import *
+
+
 global redis_server, MEDIA_PATH
-import subprocess
-import time
 
 # path to store all media
 MEDIA_PATH = "./media"
@@ -52,7 +56,7 @@ if __name__ == "__main__":
                 if (retcode == 0):
             
                     # apply slowed w reverb to it
-                    slowed_audio_path = slowedreverb(audio_path, )
+                    slowed_audio_path = slowedreverb(audio_path, ROOM_SIZE, DAMPING, WET_LEVEL, DRY_LEVEL, DELAY, SLOWFACTOR)
                     if os.path.isfile(slowed_audio_path):
                         print("Successfully slowed {0}! Saved to {1}".format(search_query, slowed_audio_path))
                         
