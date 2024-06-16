@@ -33,7 +33,7 @@ if __name__ == "__main__":
         
         # you can set PLAYLIST_ID to whatever playlist id you want from spotify
         # the default is spotify top 50 global
-        top_songs_ret = getTopSongs(access_token, os.environ['PLAYLIST_ID']) 
+        top_songs_ret = getTopSongs(access_token, PLAYLIST_ID) 
         
         if top_songs_ret.status_code != 200:
             print("Error occurred! Caught status code: ", top_songs_ret.status_code)

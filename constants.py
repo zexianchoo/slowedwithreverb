@@ -3,6 +3,7 @@ SLOWED_BASENAME="slowed"
 GIF_BASENAME="gifs"
 VIDEO_BASENAME="videos"
 AUDIO_BASENAME="audio"
+PLAYLIST_ID = "37i9dQZEVXbMDoHDwVN2tF"
 
 # slowed with reverb settings:
 ROOM_SIZE=0.75
