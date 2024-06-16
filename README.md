@@ -42,3 +42,22 @@ GIPHY_API = "..."
 There will be a one-time (hopefully) manual sign-in at the beginning for Google's authentication.
 
 3. Change the settings in constants.py as you wish!
+
+``` python
+usage: main.py [-h] [--spotify_client SPOTIFY_CLIENT] [--spotify_secret SPOTIFY_SECRET] [--playlist_id PLAYLIST_ID]
+               [--giphy_api GIPHY_API] [--timeout TIMEOUT]
+
+Slowed with Reverb Pipeline
+
+options:
+  -h, --help            show this help message and exit
+  --spotify_client SPOTIFY_CLIENT
+                        Spotify API's client id
+  --spotify_secret SPOTIFY_SECRET
+                        Spotify API's client secret
+  --playlist_id PLAYLIST_ID
+                        Spotify API's playlist ID (e.g. 37i9dQZF1DZ06evO0KmqXv)
+  --giphy_api GIPHY_API
+                        GIPHY API's authorization
+  --timeout TIMEOUT     Seconds between upload to youtube
+```

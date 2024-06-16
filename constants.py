@@ -14,8 +14,8 @@ GIF_SEARCH_TERM = "aesthetic anime" # what is placed into the search bar
 # slowed with reverb settings:
 ROOM_SIZE=0.5
 DAMPING=0.25
-WET_LEVEL=0.12
-DRY_LEVEL=0.2
+WET_LEVEL=0.08
+DRY_LEVEL=0.3
 DELAY=0.5
 SLOWFACTOR=0.15
 
