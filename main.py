@@ -1,28 +1,24 @@
 import os
 from dotenv import load_dotenv
 import redis
-from spotifyapi import authorize, getTopSongs
-from ytdl import downloadAudio
-from slowedwreverb import slowedreverb
-from videocreation import getNewGIF, createVideoFromGIF
-global redis_server
+from src.spotifyapi import authorize, getTopSongs
+from src.ytdl import downloadAudio
+from src.slowedwreverb import slowedreverb
+from src.videocreation import getNewGIF, createVideoFromGIF
+global redis_server, MEDIA_PATH
 import subprocess
 import time
 
-# shutdown the Redis server
-def shutdown():
-    try:
-        redis_server.shutdown()
-        print("Redis server shutdown.")
-        exit(0)
-    except redis.exceptions.ConnectionError:
-        print("Redis server is already shut down or not reachable.")
-        exit(1)
+# path to store all media
+MEDIA_PATH = "./media"
         
 if __name__ == "__main__":
     
     # load secrets
     load_dotenv("config.env") 
+    
+    # create folder to store all of the media
+    os.makedirs(MEDIA_PATH, exist_ok=True)
     
     # spin up redis server
     redis_server = redis.Redis(host='127.0.0.1', port=6379, socket_connect_timeout=1)
