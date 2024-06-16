@@ -1,4 +1,4 @@
-# yt-slowed
+# slowedwithreverb
 
 ## Pipeline:
   1. Tracks songs from a spotify playlist
