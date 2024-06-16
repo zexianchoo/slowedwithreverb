@@ -11,11 +11,8 @@ from src.videocreation import getNewGIF, createVideoFromGIF
 from constants import *
 
 
-global redis_server, MEDIA_PATH
+global redis_server
 
-# path to store all media
-MEDIA_PATH = "./media"
-        
 if __name__ == "__main__":
     
     # load secrets
