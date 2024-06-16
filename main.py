@@ -82,15 +82,16 @@ Check out my website here: zexianchoo.github.io :)
                             '--file="{0}" '
                             '--title="{1}" '
                             '--description="{2}" '
-                            '--keywords="Slowed,reverb,slowedwithreverb, {1}" '
+                            '--keywords="Slowed,reverb,with,slowedwithreverb,aesthetic,coding,github{1}" '
                             '--category=10 '
                             '--privacyStatus="public" '
                             '--noauth_local_webserver'
                         ).format(yt_vidpath, yt_vidname, description)
-
-                        # res = subprocess.call(command, shell=True)
-                        res = 1
-                        if res == 0:
+                        
+                        child = subprocess.Popen(command, stdout=subprocess.PIPE)
+                        streamdata = child.communicate()[0]
+                        retcode = child.returncode
+                        if retcode == 0:
                             print("Uploaded {}!".format(yt_vidname))
                             
                             # ensure unique uploads
