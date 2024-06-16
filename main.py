@@ -79,7 +79,7 @@ if __name__ == "__main__":
                             """{0}
 Hey guys! This video was made entirely using a pipeline which tracks a spotify playlist, edits the music and video and uploads slowed + reverb versions of the song onto youtube. 
 The pipeline is running on an EC2 instance deployed on AWS.
-This project's source code is here: github.com/zexianchoo/yt-slowed
+This project's source code is here: https://github.com/zexianchoo/slowedwithreverb
 
 GIPHY was used for the gifs, and of course all credits go to the respective artists. 
 The GIF url is here: {1}
