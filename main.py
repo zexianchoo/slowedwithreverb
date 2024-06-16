@@ -10,9 +10,9 @@ from src.slowedwreverb import slowedreverb
 from src.videocreation import getNewGIF, createVideoFromGIF
 from constants import *
 
-
 global redis_server
 
+# TODO: argparser for easier configurability
 if __name__ == "__main__":
     
     # load secrets
@@ -25,10 +25,9 @@ if __name__ == "__main__":
     redis_server = redis.Redis(host='127.0.0.1', port=6379, socket_connect_timeout=1)
     print("Connected to redis_server...")
     
-    # authorize and get songs from top 50:
-    
     # main loop
     while True:
+        # authorize and get songs from top 50:
         access_token = authorize(os.environ['SPOTIFY_CLIENT_ID'], os.environ['SPOTIFY_CLIENT_SECRET'])
         
         # you can set PLAYLIST_ID to whatever playlist id you want from spotify
@@ -77,20 +76,20 @@ I do not monetize these videos.
 
 Check out my website here: zexianchoo.github.io :)
                             """.format(yt_vidname, gif_url)
+                        
+                        upload_video_path = os.path.join("src", "uploadvideo.py")
                         command = (
-                            'python uploadvideo.py '
-                            '--file="{0}" '
-                            '--title="{1}" '
-                            '--description="{2}" '
+                            'python {0} '
+                            '--file="{1}" '
+                            '--title="{2}" '
+                            '--description="{3}" '
                             '--keywords="Slowed,reverb,with,slowedwithreverb,aesthetic,coding,github{1}" '
                             '--category=10 '
                             '--privacyStatus="public" '
                             '--noauth_local_webserver'
-                        ).format(yt_vidpath, yt_vidname, description)
+                        ).format(upload_video_path, yt_vidpath, yt_vidname, description)
                         
-                        child = subprocess.Popen(command, stdout=subprocess.PIPE)
-                        streamdata = child.communicate()[0]
-                        retcode = child.returncode
+                        retcode = subprocess.call(command, shell=True)
                         if retcode == 0:
                             print("Uploaded {}!".format(yt_vidname))
                             

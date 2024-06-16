@@ -1,18 +1,30 @@
 # yt-slowed
 
-# Getting your `client_secrets.json`
+## Pipeline:
+  1. Tracks songs from a spotify playlist
+  2. Downloads the song from youtube with yt-dl (yt-dlp fork)
+  3. Slows + Reverbs the song (Pedalboard)
+  4. Downloads GIFS from GIPHY
+  5. Creates video, overlaying gif with slowed+reverb audio
+  6. Uploads video to youtube
+
+### Create your own slowed with reverb videos here!
+  - example: https://www.youtube.com/watch?v=SNfFyMW7zak
+
+# PreReqs:
+
+## Getting your `client_secrets.json`
 - Please access https://console.cloud.google.com/ to create your credentials and OAuth 2.0 Client IDS.
 - Save the `client_secrets.json` to the root directory.
 
-## `config.env`
+## Create a  `config.env`
 ```
 SPOTIFY_CLIENT_ID = "..."
 SPOTIFY_CLIENT_SECRET = "..."
 PLAYLIST_ID = "..."
 GIPHY_API = "..."
 ```
-
-There will have to be a manual sign-in at the beginning for Google's authentication.
+-------
 
 # Usage:
 
@@ -27,3 +39,6 @@ There will have to be a manual sign-in at the beginning for Google's authenticat
      - ffmpeg on PATH or in local directory with some edits to code
      - constants.py
        - Change the reverb / slowed settings as you wish!
+There will be a one-time (hopefully) manual sign-in at the beginning for Google's authentication.
+
+3. Change the settings in constants.py as you wish!
