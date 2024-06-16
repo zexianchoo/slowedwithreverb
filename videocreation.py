@@ -1,5 +1,5 @@
 import moviepy.editor as mp
-from moviepy.editor import ColorClip,TextClip,AudioFileClip
+from  moviepy.editor import ColorClip,TextClip,AudioFileClip
 import requests
 import os
 
@@ -126,18 +126,18 @@ def createVideoFromGIF(audio_path, gif_path, yt_vidname):
             .set_pos(("center","center")))
 
     #custom made formula to set words below the animated GIF
-    # var_y = 0.5 * (black_clip.size[1] - animated_gif.size[1])
-    # new_y = animated_gif.size[1] + 1.25 * var_y
-    # new_x = "center" 
+    var_y = 0.5 * (black_clip.size[1] - animated_gif.size[1])
+    new_y = animated_gif.size[1] + 1.25 * var_y
+    new_x = "center" 
 
-    # title_clip = TextClip(txt=yt_vidname, fontsize=30, font='Brush-Script-MT-Italic', color='white')
-    # title = title_clip.set_pos((new_x,new_y)).set_duration(audio_track.duration)
+    title_clip = TextClip(txt=yt_vidname, fontsize=20, font='Palatino-Italic', color='white').set_duration(audio_track.duration)
+    title = title_clip.loop().set_pos((new_x,new_y))
 
     setaudioclip = animated_gif.set_audio(audio_track)
 
     file_basename = yt_vidname.replace(' ', '')
-    final = mp.CompositeVideoClip([black_clip, setaudioclip])
+    final = mp.CompositeVideoClip([black_clip, setaudioclip, title])
     output_path = os.path.join(VIDEO_PATH, file_basename) + ".mp4"
-    final.write_videofile(output_path, threads=3, codec="libx264")
+    final.write_videofile(output_path, threads=1, codec="libx264")
     
     return output_path

@@ -13,7 +13,7 @@ def downloadAudio(track):
     
     artist = track['artists'][0]['name'].replace(' ', '')
     output_filename = "{0}/{1}_{2}".format(OUT_PATH, artist, track['name']).replace(' ', '')
-    search_query = "{0} {1} audio".format(track['name'], artist)
+    search_query = "{0} {1} lyrics".format(track['name'], artist)
     print(output_filename)
     yt_opts = {
         'noplaylist': True,

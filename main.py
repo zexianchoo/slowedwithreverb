@@ -54,7 +54,6 @@ if __name__ == "__main__":
                 # download audio and save to redis if it was successful
                 retcode, audio_path = downloadAudio(track)
                 if (retcode == 0):
-                    redis_server.set(search_query, 1)
             
                     # apply slowed w reverb to it
                     slowed_audio_path = slowedreverb(audio_path, )
@@ -92,17 +91,18 @@ Check out my website here: zexianchoo.github.io :)
                             '--noauth_local_webserver'
                         ).format(yt_vidpath, yt_vidname, description)
 
-                        res = subprocess.call(command, shell=True)
+                        # res = subprocess.call(command, shell=True)
+                        res = 1
                         if res == 0:
                             print("Uploaded {}!".format(yt_vidname))
+                            
+                            # ensure unique uploads
+                            redis_server.set(search_query, 1)
+                            
+                            # (TODO: fix busywaits, and probably make an easier config file separate from secrets)
+                            time.sleep(86400)
                         else:
                             print("Error in uploading...")
-                            
-                        # ensure unique uploads
-                        redis_server.set("search_query", 1)
-                        
-            # (TODO: fix busywaits, and probably make an easier config file separate from secrets)
-            time.sleep(86400)
 
 
     

@@ -8,7 +8,7 @@ from math import trunc
 SLOWED_OUTPATH="./slowed"
 os.makedirs(SLOWED_OUTPATH, exist_ok=True)
 
-def slowedreverb(input_file, room_size = 0.5, damping = 0.5, wet_level = 0.08, dry_level = 0.2, delay = 1, slowfactor = 0.08):
+def slowedreverb(input_file, room_size = 0.5, damping = 0.5, wet_level = 0.08, dry_level = 0.2, delay = 1, slowfactor = 0.12):
     
     # using tmp wav
     if '.wav' not in input_file:
