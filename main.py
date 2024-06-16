@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import redis
 import subprocess
 import time
+import argparse
 
 from src.spotifyapi import authorize, getTopSongs
 from src.ytdl import downloadAudio
@@ -14,6 +15,14 @@ global redis_server
 
 # TODO: argparser for easier configurability
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Slowed with Reverb Pipeline')
+    parser.add_argument('--spotify_client', type=str, help='Spotify API\'s client id')
+    parser.add_argument('--spotify_secret', type=str, help='Spotify API\'s client secret')
+    parser.add_argument('--playlist_id', type=str, help='Spotify API\'s playlist ID (e.g. 37i9dQZF1DZ06evO0KmqXv)')
+    parser.add_argument('--giphy_api', type=str, help='GIPHY API\'s authorization')
+    parser.add_argument('--timeout', type=int, help='Seconds between upload to youtube')
+    
+    args = parser.parse_args()
     
     # load secrets
     load_dotenv("config.env") 
@@ -28,11 +37,13 @@ if __name__ == "__main__":
     # main loop
     while True:
         # authorize and get songs from top 50:
-        access_token = authorize(os.environ['SPOTIFY_CLIENT_ID'], os.environ['SPOTIFY_CLIENT_SECRET'])
+        access_token = authorize( \
+            os.environ['SPOTIFY_CLIENT_ID'] if os.environ['SPOTIFY_CLIENT_ID'] is not None else args.spotify_client, \
+            os.environ['SPOTIFY_CLIENT_SECRET'] if os.environ['SPOTIFY_CLIENT_SECRET'] is not None else args.spotify_secret)
         
         # you can set PLAYLIST_ID to whatever playlist id you want from spotify
         # the default is spotify top 50 global
-        top_songs_ret = getTopSongs(access_token, PLAYLIST_ID) 
+        top_songs_ret = getTopSongs(access_token, PLAYLIST_ID if PLAYLIST_ID is not None else args.playlist_id) 
         
         if top_songs_ret.status_code != 200:
             print("Error occurred! Caught status code: ", top_songs_ret.status_code)
@@ -58,7 +69,8 @@ if __name__ == "__main__":
                         
                         # now, we will create the video
                         # get a new GIF:
-                        gif_path, gif_url = getNewGIF(redis_server, os.environ['GIPHY_API'])
+                        gif_path, gif_url = getNewGIF(redis_server, \
+                                                      os.environ['GIPHY_API'] if os.environ['GIPHY_API'] is not None else args.giphy_api)
                         
                         yt_vidname = "{0} - {1} (slowed & reverbed)".format(track['name'], track['artists'][0]['name'])
                         yt_vidpath = createVideoFromGIF(slowed_audio_path, gif_path, yt_vidname)
@@ -97,7 +109,7 @@ Check out my website here: zexianchoo.github.io :)
                             redis_server.set(search_query, 1)
                             
                             # (TODO: fix busywaits, and probably make an easier config file separate from secrets)
-                            time.sleep(86400)
+                            time.sleep(TIMEOUT if TIMEOUT is not None else args.timeout)
                         else:
                             print("Error in uploading...")
 
