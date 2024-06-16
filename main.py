@@ -72,7 +72,7 @@ if __name__ == "__main__":
                         gif_path, gif_url = getNewGIF(redis_server, \
                                                       os.environ['GIPHY_API'] if os.environ['GIPHY_API'] is not None else args.giphy_api)
                         
-                        yt_vidname = "{0} - {1} (slowed & reverbed)".format(track['name'], track['artists'][0]['name'])
+                        yt_vidname = "{0} - {1} (slowed + reverb)".format(track['name'], track['artists'][0]['name'])
                         yt_vidpath = createVideoFromGIF(slowed_audio_path, gif_path, yt_vidname)
                         
                         description = \
