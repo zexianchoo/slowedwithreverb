@@ -4,6 +4,7 @@ import requests
 import os
 from constants import *
 import random
+import subprocess as sp
 
 VIDEO_PATH= os.path.join(MEDIA_PATH, VIDEO_BASENAME)
 GIF_PATH= os.path.join(MEDIA_PATH, GIF_BASENAME)
@@ -158,3 +159,34 @@ def createVideoFromGIF(audio_path, gif_path, yt_vidname):
     final.write_videofile(output_path, threads=1, codec="libx264")
     
     return output_path
+
+
+def uploadToYoutube(yt_vidpath, yt_vidname, gif_url):
+    description = \
+    """{0}
+Hey guys! This video was made entirely using a pipeline which tracks a spotify playlist, edits the music and video and uploads slowed + reverb versions of the song onto youtube. 
+The pipeline is running on an EC2 instance deployed on AWS.
+This project's source code is here: https://github.com/zexianchoo/slowedwithreverb
+
+GIPHY was used for the gifs.
+The GIF url is here: {1}
+
+I do not monetize these videos. All credits go to the respective artists. 
+
+Check out my website here: zexianchoo.github.io :)
+    """.format(yt_vidname, gif_url)
+                        
+    upload_video_path = os.path.join("src", "uploadvideo.py")
+    command = (
+        'python {0} '
+        '--file="{1}" '
+        '--title="{2}" '
+        '--description="{3}" '
+        '--keywords="Slowed,reverb,with,slowedwithreverb,aesthetic,coding,github{1}" '
+        '--category=10 '
+        '--privacyStatus="public" '
+        '--noauth_local_webserver'
+    ).format(upload_video_path, yt_vidpath, yt_vidname, description)
+    
+    retcode = sp.call(command, shell=True)
+    return retcode

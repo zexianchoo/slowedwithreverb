@@ -9,12 +9,10 @@ os.makedirs(OUT_PATH, exist_ok=True)
 """
 Uses yt-dlp to download audio files into the outpath.
 """
-def downloadAudio(track):
-    final_filename = None
+def downloadAudio(song_name, artist=""):
     
-    artist = track['artists'][0]['name'].replace(' ', '')
-    output_filename = "{0}/{1}_{2}".format(OUT_PATH, artist, track['name']).replace(' ', '')
-    search_query = "{0} {1} lyrics".format(track['name'], artist)
+    output_filename = "{0}/{1}_{2}".format(OUT_PATH, artist, song_name).replace(' ', '')
+    search_query = "{0} {1} lyrics".format(song_name, artist)
     print(output_filename)
     yt_opts = {
         'noplaylist': True,

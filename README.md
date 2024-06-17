@@ -1,6 +1,21 @@
 # slowedwithreverb
 
-## Pipeline:
+## If you just want a video created with no uploads nothing i gotchu:
+
+1. run `pip install -r requirements.txt`
+2. Download ffmpeg
+3. Run the following:
+``` bash
+python main.py -s "<song name>" -g "<path/to/gif>"
+```
+
+For example, `python main.py -s "stress relief" -g "media/gifs/ABCD.gif"`
+output will be at `media/videos`.
+
+Be sure to include both params!
+
+--------
+# Pipeline:
   1. Tracks songs from a spotify playlist
   2. Downloads the song from youtube with yt-dl (yt-dlp fork)
   3. Slows + Reverbs the song (Pedalboard)
@@ -41,11 +56,13 @@ GIPHY_API = "..."
        - Change the reverb / slowed settings as you wish!
 There will be a one-time (hopefully) manual sign-in at the beginning for Google's authentication.
 
-3. Change the settings in constants.py as you wish!
+3. Change the settings in constants.py as you wish! `argparse` will take precedence over `constants.py`.
 
-``` python
-usage: main.py [-h] [--spotify_client SPOTIFY_CLIENT] [--spotify_secret SPOTIFY_SECRET] [--playlist_id PLAYLIST_ID]
-               [--giphy_api GIPHY_API] [--timeout TIMEOUT]
+``` bash
+usage: main.py [-h] [--spotify_client SPOTIFY_CLIENT]
+               [--spotify_secret SPOTIFY_SECRET] [--playlist_id PLAYLIST_ID]       
+               [--giphy_api GIPHY_API] [--timeout TIMEOUT] [--noupload]
+               [--song SONG] [--gif GIF]
 
 Slowed with Reverb Pipeline
 
@@ -56,8 +73,12 @@ options:
   --spotify_secret SPOTIFY_SECRET
                         Spotify API's client secret
   --playlist_id PLAYLIST_ID
-                        Spotify API's playlist ID (e.g. 37i9dQZF1DZ06evO0KmqXv)
+                        Spotify API's playlist ID (e.g. 37i9dQZF1DZ06evO0KmqXv)    
   --giphy_api GIPHY_API
                         GIPHY API's authorization
   --timeout TIMEOUT     Seconds between upload to youtube
+  --noupload, -nu       Flag indicating no upload to youtube
+  --song SONG, -s SONG  Single song name (make sure to use double quotes for song  
+                        names with spaces e.g. "stress relief")
+  --gif GIF, -g GIF     Path to gif
 ```
