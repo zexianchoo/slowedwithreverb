@@ -14,6 +14,7 @@ output will be at `media/videos`.
 
 Be sure to include both params!
 
+As always, you can tune the slowed+reverb settings in `constants.py`
 --------
 # Pipeline:
   1. Tracks songs from a spotify playlist
