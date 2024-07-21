@@ -93,7 +93,6 @@ if __name__ == "__main__":
                         yt_vidname = "{0} - {1} (slowed + reverb)".format(track['name'], track['artists'][0]['name'])
                         yt_vidpath = createVideoFromGIF(slowed_audio_path, gif_path, yt_vidname)
                         
-                        
                         if args.noupload: #defaults to true
                             retcode = uploadToYoutube(yt_vidpath, yt_vidname, gif_url)
                             if retcode == 0:
@@ -106,6 +105,7 @@ if __name__ == "__main__":
                                 time.sleep(TIMEOUT if TIMEOUT is not None else args.timeout)
                             else:
                                 print("Error in uploading...")
+                                exit(1)
                         else:
                             print("Video has been output at {}".format(yt_vidpath))
 

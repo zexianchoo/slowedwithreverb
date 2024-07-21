@@ -16,7 +16,7 @@ GIPHY_ENDPOINT="https://api.giphy.com/v1/gifs/search"
 """
 Download new gifs to keep the gif stockpile fresh, adds key value pair to redis
 """
-def loadRedisWithGIFS(redis_server, api_key, endpoint=GIPHY_ENDPOINT, search_term=GIF_SEARCH_TERM, limit=25):
+def loadRedisWithGIFS(redis_server, api_key, endpoint=GIPHY_ENDPOINT, search_term=GIF_SEARCH_TERM, limit=50):
     params = {
         'q': search_term,
         'api_key': api_key,
@@ -40,7 +40,7 @@ def loadRedisWithGIFS(redis_server, api_key, endpoint=GIPHY_ENDPOINT, search_ter
 
     return retcode, gif_id, gif_url
 
-def getNotVisitedHeper(redis_server):
+def getNotVisitedHelper(redis_server):
     cursor = 0
     while True: 
         cursor, keys = redis_server.scan(cursor=cursor, match='gif:*', count=100)
@@ -61,19 +61,19 @@ if we cant find anything, then we will have to call loadRedisWithGIFS again, or 
 """
 def getNotVisited(redis_server, api_key):
     
-    res = getNotVisitedHeper(redis_server)
+    res = getNotVisitedHelper(redis_server)
     if res != "NULL":
         return res
     
     # did not find, try to search again:
     loadRedisWithGIFS(redis_server, api_key)
-    res = getNotVisitedHeper(redis_server)
+    res = getNotVisitedHelper(redis_server)
     if res != "NULL":
         return res
         
     # still didnt find!!! we will use trending.
-    loadRedisWithGIFS(api_key, search_term="trending", limit=5)
-    res = getNotVisitedHeper(redis_server)
+    loadRedisWithGIFS(redis_server, api_key, search_term="trending", limit=5)
+    res = getNotVisitedHelper(redis_server)
     return res
 
 
@@ -120,17 +120,13 @@ def createVideoFromGIF(audio_path, gif_path, yt_vidname):
     hdres = [1280, 720]
     
     mellow_colors = [
-        [240, 230, 140],  # Mellow Yellow
         [255, 165, 0],    # Mellow Orange
-        [152, 251, 152],  # Mellow Green
         [173, 216, 230],  # Mellow Blue
         [204, 153, 255],  # Mellow Purple
-        [255, 182, 193],  # Mellow Pink
         [255, 218, 185],  # Mellow Peach
         [230, 230, 250],  # Mellow Lavender
         [189, 252, 201],  # Mellow Mint
         [200, 162, 200],  # Mellow Lilac
-        [135, 206, 235],  # Mellow Sky Blue
         [244, 164, 96]    # Mellow Sand
     ]
     
@@ -182,7 +178,7 @@ Check out my website here: zexianchoo.github.io :)
         '--file="{1}" '
         '--title="{2}" '
         '--description="{3}" '
-        '--keywords="Slowed,reverb,with,slowedwithreverb,aesthetic,coding,github{1}" '
+        '--keywords="Slowed,reverb,with,slowedwithreverb,aesthetic,coding,github,slowed + reverb,chill,vibes,{1}" '
         '--category=10 '
         '--privacyStatus="public" '
         '--noauth_local_webserver'
@@ -190,3 +186,4 @@ Check out my website here: zexianchoo.github.io :)
     
     retcode = sp.call(command, shell=True)
     return retcode
+

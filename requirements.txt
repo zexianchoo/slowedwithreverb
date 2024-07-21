@@ -8,4 +8,4 @@ python-dotenv==1.0.1
 redis==5.0.5
 Requests==2.32.3
 soundfile==0.12.1
-yt_dlp==2024.5.27
+yt_dlp==2024.07.01

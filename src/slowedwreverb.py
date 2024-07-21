@@ -15,7 +15,7 @@ def slowedreverb(input_file, room_size = 0.5, damping = 0.5, wet_level = 0.08, d
     # using tmp wav
     if '.wav' not in input_file:
         print('Audio needs to be .wav! Converting...')
-        subprocess.call(f'ffmpeg -hide_banner -loglevel error -y -i "{audio}" ./tmp.wav', shell = True)
+        subprocess.call(f'ffmpeg -hide_banner -loglevel error -y -i "{input_file}" ./tmp.wav', shell = True)
         audio = './tmp.wav'
         
         audio, sample_rate = sf.read(audio)
